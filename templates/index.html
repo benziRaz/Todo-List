@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>יומן אישי</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>היומן שלי</h1>
+            <a href="{{ url_for('add_entry') }}" class="btn btn-primary">✏️ כתיבת רשומה חדשה</a>
+        </header>
+        
+        <main class="entries">
+            {% for entry in entries %}
+                <article class="entry">
+                    <h2>{{ entry.title }}</h2>
+                    <div class="entry-content">{{ entry.content }}</div>
+                    <div class="entry-meta">
+                        <time class="entry-date" datetime="{{ entry.date.strftime('%Y-%m-%dT%H:%M:%S') }}">
+                            {{ entry.date.strftime('%d/%m/%Y %H:%M') }}
+                        </time>
+                        <div class="entry-actions">
+                            <a class="btn btn-secondary" href="{{ url_for('edit_entry', entry_id=entry.id) }}">עריכה</a>
+                            
+                            <button onclick="confirmDelete('{{ entry.id }}')" class="btn btn-danger" aria-label="מחיקה">מחיקה</button>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </main>
+    </div>
+
+    <script>
+        function confirmDelete(entryId) {
+            if (confirm('האם למחוק רשומה זו?')) {
+                window.location.href = `/delete/${entryId}`;
+            }
+        }
+    </script>
+</body>
+</html>
