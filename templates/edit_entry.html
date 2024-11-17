@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>עריכת רשומה</title>
     <link rel="stylesheet" href="../static/style2.css">
-
-
 </head>
 <body>
     <div class="container">
@@ -19,6 +17,14 @@
             <div class="form-group">
                 <label class="form-label" for="content">תוכן</label>
                 <textarea class="form-control" id="content" name="content" required>{{ entry.content }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="priority">רמת דחיפות</label>
+                <select id="priority" name="priority" class="form-control">
+                    <option value="low" {% if entry.priority == 'low' %}selected{% endif %}>נמוכה</option>
+                    <option value="medium" {% if entry.priority == 'medium' %}selected{% endif %}>בינונית</option>
+                    <option value="high" {% if entry.priority == 'high' %}selected{% endif %}>גבוהה</option>
+                </select>
             </div>
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">שמור שינויים</button>
